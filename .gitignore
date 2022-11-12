@@ -1,0 +1,7 @@
+.serverless
+*.pyc
+*.pyo
+node_modules/
+
+pit/node_modules/
+PIT_deprecated/node_modules/
