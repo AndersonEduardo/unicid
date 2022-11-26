@@ -170,49 +170,41 @@ def query():
 @app.route('/autocomplete_category/', methods=['GET'])
 def autocomplete_category():
 
-    # age = request.args.get('age', None, type=str)
-    # sex = request.args.get('sex', None, type=str)
-    # query = request.args.get('query', None, type=str)
-
-    # print('User input for `age`:', age)
-    # print('User input for `sex`:', sex)
-    # print('User input for `query`:', query)
-
     atcp = Autocomplete()
 
-    # output = atcp.autocomplete(age, sex, query)
     output = atcp.get_clinical_condition()
 
     return jsonify(output)
 
 
 @app.route('/autocomplete_subcategory/', methods=['GET'])
-def autocomplete_dubcategory():
-
-    # age = request.args.get('age', None, type=str)
-    # sex = request.args.get('sex', None, type=str)
-    # query = request.args.get('query', None, type=str)
-
-    # print('User input for `age`:', age)
-    # print('User input for `sex`:', sex)
-    # print('User input for `query`:', query)
+def autocomplete_subcategory():
 
     atcp = Autocomplete()
 
-    # output = atcp.autocomplete(age, sex, query)
     output = atcp.get_subcategory()
 
     return jsonify(output)
     
 
-@app.route('/test', methods=['GET'])
-def test():
+@app.route('/autocomplete_sex/', methods=['GET'])
+def autocomplete_sex():
 
-    response = jsonify('Xablau')
+    atcp = Autocomplete()
 
-    # response.headers.add('Access-Control-Allow-Origin', '*')
+    output = atcp.get_sex()
 
-    return response
+    return jsonify(output)
+
+
+@app.route('/autocomplete_age/', methods=['GET'])
+def autocomplete_age():
+
+    atcp = Autocomplete()
+
+    output = atcp.get_age()
+
+    return jsonify(output)
 
 
 if __name__ == '__main__':

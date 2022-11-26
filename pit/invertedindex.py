@@ -245,64 +245,65 @@ class LevenshteinBasedInvertedIndex(InvertedIndex):
 
 class Autocomplete:
 
-    # def autocomplete(self, age:str, sex:str, query:str) -> dict:
+
     def get_clinical_condition(self) -> dict:
 
-        lbii_clinical_indication = LevenshteinBasedInvertedIndex()
-        lbii_subcategory = LevenshteinBasedInvertedIndex()
         clinical_indication_corpus = set()
-        subcategory_corpus = set()
 
         dtab = DecisionTable(PARAMETERS)
         dtab.build()
 
         for i in range(len(dtab.rules)):
 
-            # if age == dtab.rules[i].get('IDADE') and sex == dtab.rules[i].get('SEXO'):
-
-            #     clinical_indication_corpus.update({dtab.rules[i].get('INDICAÇÃO CLÍNICA')})
-            #     subcategory_corpus.update({dtab.rules[i].get('SUBCATEGORIA')})
-
             clinical_indication_corpus.update({dtab.rules[i].get('INDICAÇÃO CLÍNICA')})
-            subcategory_corpus.update({dtab.rules[i].get('SUBCATEGORIA')})
-
-        # return {
-        #     'clinical_indication_labels': list(clinical_indication_corpus),
-        #     'subcategory_labels': list(subcategory_corpus)
-        # }
 
         return list(clinical_indication_corpus)
 
 
     def get_subcategory(self) -> dict:
 
-        lbii_clinical_indication = LevenshteinBasedInvertedIndex()
-        lbii_subcategory = LevenshteinBasedInvertedIndex()
-        clinical_indication_corpus = set()
         subcategory_corpus = set()
+
+        dtab = DecisionTable(PARAMETERS)
+        dtab.build()
+
+        print('\n###########################\n')
+        print('dtab.rules:\n', dtab.rules)
+        print('\n###########################\n')
+
+        for i in range(len(dtab.rules)):
+
+            subcategory_corpus.update({dtab.rules[i].get('SUBCATEGORIA')})
+
+        return list(subcategory_corpus)
+
+
+    def get_sex(self) -> dict:
+
+        sex_corpus = set()
 
         dtab = DecisionTable(PARAMETERS)
         dtab.build()
 
         for i in range(len(dtab.rules)):
 
-            # if age == dtab.rules[i].get('IDADE') and sex == dtab.rules[i].get('SEXO'):
+            sex_corpus.update({dtab.rules[i].get('SEXO')})
 
-            #     clinical_indication_corpus.update({dtab.rules[i].get('INDICAÇÃO CLÍNICA')})
-            #     subcategory_corpus.update({dtab.rules[i].get('SUBCATEGORIA')})
-
-            clinical_indication_corpus.update({dtab.rules[i].get('INDICAÇÃO CLÍNICA')})
-            subcategory_corpus.update({dtab.rules[i].get('SUBCATEGORIA')})
-
-        # return {
-        #     'clinical_indication_labels': list(clinical_indication_corpus),
-        #     'subcategory_labels': list(subcategory_corpus)
-        # }
-
-        return list(subcategory_corpus)
+        return list(sex_corpus)
 
 
+    def get_age(self) -> dict:
 
+        age_corpus = set()
+
+        dtab = DecisionTable(PARAMETERS)
+        dtab.build()
+
+        for i in range(len(dtab.rules)):
+
+            age_corpus.update({dtab.rules[i].get('IDADE')})
+
+        return list(age_corpus)
 
 
         # lbii_clinical_indication.get_inverted_index(clinical_indication_corpus)
