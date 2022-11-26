@@ -1,13 +1,8 @@
 org: cockpit
 app: pit
-service: api
+service: myapp
 
 frameworkVersion: '3'
-
-custom:
-  wsgi:
-    app: app.app
-
 
 provider:
   name: aws
@@ -28,9 +23,19 @@ provider:
           Resource:
             - 'arn:aws:s3:::bot-acr-guidelines/*'
 
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
 
 functions:
-  api:
+  app:
     handler: wsgi_handler.handler
     events:
       - http: ANY /
@@ -44,8 +49,3 @@ functions:
     handler: monitor.launch
     events:
       - schedule: cron(0 9 ? * MON *)
-
-
-plugins:
-  - serverless-wsgi
-  - serverless-python-requirements
